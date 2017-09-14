@@ -160,16 +160,6 @@ public class UIDropDown: UIControl {
         self.layer.borderWidth = borderWidth
         self.layer.borderColor = borderColor.cgColor
         self.addTarget(self, action: #selector(touch), for: .touchUpInside)
-    }
-    
-    @objc fileprivate func touch() {
-        isSelected = !isSelected
-        isSelected ? showTable() : hideTable()
-    }
-    
-    fileprivate func showTable() {
-        
-        privateTableWillAppear()
         
         table = UITableView(frame: CGRect(x: self.frame.minX,
                                           y: self.frame.minY,
@@ -182,7 +172,21 @@ public class UIDropDown: UIControl {
         table.layer.borderWidth = optionsBorderWidth
         table.layer.borderColor = optionsBorderColor.cgColor
         table.rowHeight = rowHeight ?? table.rowHeight
-        self.superview?.insertSubview(table, belowSubview: self)
+    }
+    
+    @objc fileprivate func touch() {
+        isSelected = !isSelected
+        isSelected ? showTable() : hideTable()
+    }
+    
+    fileprivate func showTable() {
+        
+        privateTableWillAppear()
+        
+        self.table.isHidden = false
+        if (self.table.superview) == nil {
+            self.superview?.insertSubview(table, belowSubview: self)
+        }
         
         switch animationType {
         case .Default:
@@ -271,7 +275,7 @@ public class UIDropDown: UIControl {
                             self.arrow.position = .down
                 },
                            completion: { (didFinish) -> Void in
-                            self.table.removeFromSuperview()
+                            self.table.isHidden = true
                             self.isSelected = false
                             self.privateTableDidDisappear()
             })
@@ -292,7 +296,7 @@ public class UIDropDown: UIControl {
                             self.arrow.position = .down
                 },
                            completion: { (didFinish) -> Void in
-                            self.table.removeFromSuperview()
+                            self.table.isHidden = true
                             self.isSelected = false
                             self.privateTableDidDisappear()
             })
