@@ -362,7 +362,7 @@ extension UIDropDown: UITableViewDelegate {
             hideTable()
         }
         
-        privatedidSelect("\(self.options[indexPath.row])", indexPath/.row!)
+        privatedidSelect("\(self.options[indexPath.row])", indexPath.row!)
     }
 }
 
