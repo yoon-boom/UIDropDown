@@ -358,19 +358,6 @@ extension UIDropDown: UITableViewDataSource {
 
 extension UIDropDown: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        selectedIndex = (indexPath as NSIndexPath).row
-        
-        title.alpha = 0.0
-        title.text = "\(self.options[(indexPath as NSIndexPath).row])"
-        
-        UIView.animate(withDuration: 0.6,
-                       animations: { () -> Void in
-                        self.title.alpha = 1.0
-        })
-        
-        tableView.reloadData()
-        
         if hideOptionsWhenSelect {
             hideTable()
         }
